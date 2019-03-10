@@ -1,11 +1,12 @@
 let cnv, p, btn;
+let reset = true;
 
 
 function setup() {
-  cnv = createCanvas(800,800);
+  cnv = createCanvas(windowWidth, windowWidth);
+  cnv.mousePressed(mousePrsd);
   p = createP("Click to draw a Sierpinski Carpet (Fractal)");
   btn = createButton("Reset");
-  btn.position(p.x + p.width + 10, p.y);
   btn.mousePressed(resetFunc);
   background(0);
 }
@@ -14,12 +15,16 @@ function draw() {
 
 }
 
-function mousePressed() {
-  carpet(0, 0, width, 0, 1);
+function mousePrsd() {
+  if (reset) {
+    carpet(0, 0, width, 0, 1);
+    reset = false;
+  }
 }
 
 function resetFunc() {
   background(0);
+  reset = true;
 }
 
 
