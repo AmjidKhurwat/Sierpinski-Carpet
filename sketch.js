@@ -1,5 +1,6 @@
 let cnv, p, btn;
 let reset = true;
+let rCol = false;
 
 
 function setup() {
@@ -8,6 +9,8 @@ function setup() {
   p = createP("Click to draw a Sierpinski Carpet (Fractal)");
   btn = createButton("Reset");
   btn.mousePressed(resetFunc);
+  rand = createButton("Random Colors: OFF");
+  rand.mousePressed(randCol);
   background(0);
 }
 
@@ -27,6 +30,14 @@ function resetFunc() {
   reset = true;
 }
 
+function randCol() {
+  rCol = !rCol;
+  if (rCol) {
+    rand.html("Random Colors: ON");
+  } else {
+    rand.html("Random Colors: OFF");
+  }
+}
 
 
 function carpet(x1, y1, x2, y2, n) {
@@ -38,8 +49,18 @@ function carpet(x1, y1, x2, y2, n) {
   let c = n + 1;
 
   if (c < 8) {
-    fill(255);
-    stroke(255);
+    let r = random(255);
+    let g = random(255);
+    let b = random(255);
+
+    if (rCol) {
+      fill(r, g, b);
+      stroke(0);
+    } else {
+      fill(255);
+      stroke(255);
+    }
+
     rect(left + third, leftTop + third, third, third);
 
 
