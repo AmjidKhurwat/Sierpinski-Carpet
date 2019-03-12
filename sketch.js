@@ -1,10 +1,18 @@
 let cnv, p, btn;
 let reset = true;
 let rCol = false;
+let done = false;
+let a = [];
+let b = [];
+let c = [];
+let d = [];
+
+const SPEED = 40;
 
 
 function setup() {
   cnv = createCanvas(windowWidth, windowWidth);
+  frameRate(60);
   cnv.mousePressed(mousePrsd);
   p = createP("Click to draw a Sierpinski Carpet (Fractal)");
   btn = createButton("Reset");
@@ -15,19 +23,48 @@ function setup() {
 }
 
 function draw() {
+  if (done) {
+    for (let i = 1; i <= SPEED; i++) {
+      let x = a.shift();
+      let y = b.shift();
+      let w = c.shift();
+      let h = d.shift();
 
+      let rC = random(255);
+      let gC = random(255);
+      let bC = random(255);
+
+      if (rCol) {
+        fill(rC, gC, bC);
+        noStroke();
+      } else {
+        fill(255);
+        noStroke();
+      }
+
+      rect(x, y, w, h);
+    }
+  }
 }
 
 function mousePrsd() {
   if (reset) {
     carpet(0, 0, width, 0, 1);
     reset = false;
+    done = true;
   }
 }
 
 function resetFunc() {
   background(0);
   reset = true;
+
+  a = [];
+  b = [];
+  c = [];
+  d = [];
+
+  done = false;
 }
 
 function randCol() {
@@ -49,19 +86,8 @@ function carpet(x1, y1, x2, y2, n) {
   let c = n + 1;
 
   if (c < 8) {
-    let r = random(255);
-    let g = random(255);
-    let b = random(255);
 
-    if (rCol) {
-      fill(r, g, b);
-      stroke(0);
-    } else {
-      fill(255);
-      stroke(255);
-    }
-
-    rect(left + third, leftTop + third, third, third);
+    saveRect(left + third, leftTop + third, third, third);
 
 
     carpet(left, leftTop, left+third, leftTop, c);
@@ -76,4 +102,11 @@ function carpet(x1, y1, x2, y2, n) {
     carpet(left+third, leftTop+third+third, right-third, leftTop+third+third, c);
     carpet(right-third, leftTop+third+third, right, leftTop+third+third, c);
   }
+}
+
+function saveRect(x, y, w, h) {
+  a.push(x);
+  b.push(y);
+  c.push(w);
+  d.push(h);
 }
