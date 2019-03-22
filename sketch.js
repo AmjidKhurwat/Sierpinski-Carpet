@@ -93,14 +93,19 @@ function carpet(x1, y1, x2, y2, n) {
     carpet(left, leftTop, left+third, leftTop, c);
     carpet(left+third, leftTop, right-third, leftTop, c);
     carpet(right-third, leftTop, right, leftTop, c);
+    
+    carpet(right-third, leftTop+third, right, leftTop+third, c);
+    carpet(right-third, leftTop+third+third, right, leftTop+third+third, c);
+    carpet(left+third, leftTop+third+third, right-third, leftTop+third+third, c);
+    carpet(left, leftTop+third+third, left+third, leftTop+third+third, c);
 
     carpet(left, leftTop+third, left+third, leftTop+third, c);
     //carpet(left+third, leftTop+third, right-third, leftTop+third, c);
-    carpet(right-third, leftTop+third, right, leftTop+third, c);
+    
 
-    carpet(left, leftTop+third+third, left+third, leftTop+third+third, c);
-    carpet(left+third, leftTop+third+third, right-third, leftTop+third+third, c);
-    carpet(right-third, leftTop+third+third, right, leftTop+third+third, c);
+    
+    
+    
   }
 }
 
